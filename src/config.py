@@ -9,6 +9,7 @@ class Config:
     
     # Todoist
     TODOIST_TOKEN = os.getenv('TODOIST_TOKEN')
+    TODOIST_PROJECT_NAME = os.getenv('TODOIST_PROJECT_NAME', 'Inbox')
     
     # OpenAI
     OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
