@@ -7,6 +7,9 @@ class Config:
     # Telegram
     TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
     
+    # Авторизация - ID пользователей, которым разрешено использовать бота
+    ALLOWED_USER_IDS = [int(id.strip()) for id in os.getenv('ALLOWED_USER_IDS', '').split(',') if id.strip().isdigit()]
+    
     # Todoist
     TODOIST_TOKEN = os.getenv('TODOIST_TOKEN')
     TODOIST_PROJECT_NAME = os.getenv('TODOIST_PROJECT_NAME', 'Inbox')
@@ -24,6 +27,10 @@ class Config:
         missing = [var for var in required if not getattr(cls, var)]
         if missing:
             raise ValueError(f"Отсутствуют переменные: {missing}")
+            
+        if not cls.ALLOWED_USER_IDS:
+            raise ValueError("ALLOWED_USER_IDS не настроен - бот будет доступен всем!")
+            
         return True
 
 config = Config()
